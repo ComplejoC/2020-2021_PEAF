@@ -46,35 +46,36 @@ Before telling a story, I want to make clear what is it exacltly that we have he
 ```{r, echo=FALSE}
 ggplot(Datum, aes(x = `¿Cursa Maestría o Doctorado?`))+
   geom_bar()
-ggsave("../Graphs/MoD.png")
+#ggsave("../Graphs/MoD.png")
 ```
 
 ```{r, echo=FALSE}
 ggplot(Datum, aes(x = `¿Que año cursa?`)) +
   geom_bar()
 
-ggsave("../Graphs/Year.png")
+#ggsave("../Graphs/Year.png")
 ```
 
 ```{r, echo=FALSE}
 ggplot(Datum, aes(x = `Usted es ...`))+
   geom_bar()
-ggsave("../Graphs/LocOint.png")
+#ggsave("../Graphs/LocOint.png")
 ```
 
 ```{r, echo=FALSE}
 ggplot(Datum, aes(x = `¿De donde provienen sus fondos?`)) +
   geom_bar() +
   theme(axis.text.x = element_text(angle = 90, size = 8))
-ggsave("../Graphs/Funds.png")
+#ggsave("../Graphs/Funds.png")
 ```
 
 ```{r, echo=FALSE}
 Datum %>%
-  filter('¿Has tenido que incurrir en prestamos a pesar de tener un estipendio?' != is.na(`¿Has tenido que incurrir en prestamos a pesar de tener un estipendio?`))%>%
+  filter(`¿A que facultad pertenece?`!= "HUMA Programa de Estudios Interdisciplinarios, M.A. en Gestión y Administración Cultural")%>%
+  filter(`¿De donde provienen sus fondos?`!= "Prestamo")%>%
   ggplot(aes(x = `¿Has tenido que incurrir en prestamos a pesar de tener un estipendio?`)) +
   geom_bar(na.rm = TRUE)
-ggsave("../Graphs/Loan.png")
+#ggsave("../Graphs/Loan.png")
 ```
 
 ```{r}
@@ -91,6 +92,17 @@ Datum %>%
   
 ```
 
+```{r}
+ggplot(Datum, aes(y = `¿Cuantas horas trabaja semanales?`)) +
+  geom_boxplot()+
+  theme(axis.text.x = element_blank())+
+  labs(y = "Horas", title = "Horas trabajadas semanales")
+
+#ggsave("../Graphs/Workhours.png")
+```
+
+
+
 So that is the straight data, but what story does it tell?
 
 ## The story
@@ -99,7 +111,7 @@ So that is the straight data, but what story does it tell?
 ggplot(Datum, aes(x = `Usted es ...`, fill = `¿De donde provienen sus fondos?`)) +
   geom_bar(position = "dodge") +
   theme(axis.text.x = element_text(size = 7)) +
-  labs(y = "Numero de estudiantes", x = "", title = "Fuente de fondos por nacionalidad")
+  labs(y = "Numero de estudiantes", x = "", title = "Fuente de fondos por ciudadania")
 
 #ggsave("../Graphs/FondosVnaional.png")
 
@@ -113,9 +125,18 @@ ggplot(aes(x = `¿Has tenido que incurrir en prestamos a pesar de tener un estip
   geom_bar(position = "dodge") +
   labs(y = "Numero de estudiantes", x = "Necesitado prestamos", title = "Insidencia de Prestamo vs Fuente de ingresso")
 
-ggsave("../Graphs/PretamovsIngre.png")
+#ggsave("../Graphs/PretamovsIngre.png")
 ```
 
+```{r}
+ggplot(Datum, aes(y = `¿Cuantas horas trabaja semanales?`, x = `¿De donde provienen sus fondos?`, fill = `¿De donde provienen sus fondos?`)) +
+ geom_boxplot() +
+  theme(axis.text.x = element_blank(), legend.text = element_text(size = 7))+
+  labs(y = "Horas de trabajo semanales", x = "", title = "Horas de trabajo por fuente de fondos")
+
+#ggsave("../Graphs/SourceVSwork.png")
+
+```
 
 
 
