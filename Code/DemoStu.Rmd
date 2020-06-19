@@ -39,6 +39,89 @@ Most of the students express that they feel like they should be included in scho
 write_tsv(Wor, "../Document/Student_concerns.tsv")
 ```
 
+## Answers to the questions
+
+Before telling a story, I want to make clear what is it exacltly that we have here.I won't ilustrate 100% of the questions as they will clutter the document. But they are available in the data set for analysis. 
+
+```{r, echo=FALSE}
+ggplot(Datum, aes(x = `¿Cursa Maestría o Doctorado?`))+
+  geom_bar()
+ggsave("../Graphs/MoD.png")
+```
+
+```{r, echo=FALSE}
+ggplot(Datum, aes(x = `¿Que año cursa?`)) +
+  geom_bar()
+
+ggsave("../Graphs/Year.png")
+```
+
+```{r, echo=FALSE}
+ggplot(Datum, aes(x = `Usted es ...`))+
+  geom_bar()
+ggsave("../Graphs/LocOint.png")
+```
+
+```{r, echo=FALSE}
+ggplot(Datum, aes(x = `¿De donde provienen sus fondos?`)) +
+  geom_bar() +
+  theme(axis.text.x = element_text(angle = 90, size = 8))
+ggsave("../Graphs/Funds.png")
+```
+
+```{r, echo=FALSE}
+Datum %>%
+  filter('¿Has tenido que incurrir en prestamos a pesar de tener un estipendio?' != is.na(`¿Has tenido que incurrir en prestamos a pesar de tener un estipendio?`))%>%
+  ggplot(aes(x = `¿Has tenido que incurrir en prestamos a pesar de tener un estipendio?`)) +
+  geom_bar(na.rm = TRUE)
+ggsave("../Graphs/Loan.png")
+```
+
+```{r}
+Datum %>%
+  group_by(`Marca temporal`)%>%
+  summarise(Gastos = sum(`¿Cuanto pagas en renta?`,`¿En promedio cuanto pagas en comida quincenalmente?`,`¿Cuanto paga en otros gastos recurentes?`)) %>%
+  filter(Gastos!=is.na(Gastos)) %>%
+  ggplot(aes(y = Gastos)) +
+  geom_boxplot() +
+  theme(axis.text.x = element_blank())+
+  labs(y = "Dolares", title = "Gastos mensuales")
+
+#ggsave("../Graphs/Gastos.png")
+  
+```
+
+So that is the straight data, but what story does it tell?
+
+## The story
+
+```{r}
+ggplot(Datum, aes(x = `Usted es ...`, fill = `¿De donde provienen sus fondos?`)) +
+  geom_bar(position = "dodge") +
+  theme(axis.text.x = element_text(size = 7)) +
+  labs(y = "Numero de estudiantes", x = "", title = "Fuente de fondos por nacionalidad")
+
+#ggsave("../Graphs/FondosVnaional.png")
+
+```
+
+```{r}
+Datum %>%
+  filter(`¿A que facultad pertenece?`!= "HUMA Programa de Estudios Interdisciplinarios, M.A. en Gestión y Administración Cultural")%>%
+  filter(`¿De donde provienen sus fondos?`!= "Prestamo")%>%
+ggplot(aes(x = `¿Has tenido que incurrir en prestamos a pesar de tener un estipendio?`, fill = `¿De donde provienen sus fondos?`)) +
+  geom_bar(position = "dodge") +
+  labs(y = "Numero de estudiantes", x = "Necesitado prestamos", title = "Insidencia de Prestamo vs Fuente de ingresso")
+
+ggsave("../Graphs/PretamovsIngre.png")
+```
+
+
+
+
+
+
+
 
 
 
