@@ -33,10 +33,10 @@ As part of the survey, the final quesiton involved writing in concerns. These ar
 Wor
 ```
 
-Most of the students express that they feel like they should be included in school legislations that involve their livelyhood. The are worried about the lack of comunication and the sproval of this certifiv
+Most of the students express that they feel like they should be included in school legislations that involve their livelyhood. The are worried about the lack of comunication and that the aproval of this certification will make it imposible for them to study. They also express that in later years the renumeration for work done has taken months to be given and that this will be repeated once again this year.
 
-```{r}
-
+```{r, include=FALSE}
+write_tsv(Wor, "../Document/Student_concerns.tsv")
 ```
 
 
