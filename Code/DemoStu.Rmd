@@ -13,3 +13,32 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 ```
 
+```{r, include=FALSE}
+Datum <- read_csv(file = "../Data/Graduados 2020, info (Respuestas).csv")
+```
+
+## Disclousure
+
+The people who took this survey are in their mayority spanish speakers. So the questions and answers will be in spanish. A translation can be made available if there is interest.
+
+## Global concerns
+
+As part of the survey, the final quesiton involved writing in concerns. These are all of them:
+
+```{r, echo=FALSE}
+ Wor<-Datum %>%
+  filter(`¿Tiene alguna preocupación que entiende debe ser traída a alguna reunion con la administacion?`!= is.na(`¿Tiene alguna preocupación que entiende debe ser traída a alguna reunion con la administacion?`)) %>%
+  select(`¿Tiene alguna preocupación que entiende debe ser traída a alguna reunion con la administacion?`)
+
+Wor
+```
+
+Most of the students express that they feel like they should be included in school legislations that involve their livelyhood. The are worried about the lack of comunication and the sproval of this certifiv
+
+```{r}
+
+```
+
+
+
+
